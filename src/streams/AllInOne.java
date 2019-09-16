@@ -105,11 +105,12 @@ public class AllInOne {
         System.out.println(cityToHighestTransaction);
         System.out.println(" each city hightest trasaction " + cityToSum);
 
-
+        System.out.println("EXCITING");
         Map<String, Map<String, Double>> cityByCurrencyToAverage =
                 transactions.stream().collect(groupingBy(Transaction::getCity,
                         groupingBy(Transaction::getCurrency,
-                                averagingInt(Transaction::getValue))));
+                                averagingInt(Transaction::getValue))
+                ));
         System.out.println(cityByCurrencyToAverage);
 
         System.out.println(" each city average trasaction " + cityToSum);

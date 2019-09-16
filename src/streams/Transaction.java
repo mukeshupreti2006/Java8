@@ -7,7 +7,7 @@ public class Transaction {
     private Integer id;
     private Integer value;
     private String city;
-
+    private String currency;
     public String getCurrency() {
         return currency;
     }
@@ -16,7 +16,7 @@ public class Transaction {
         this.currency = currency;
     }
 
-    private String currency;
+
 
     public String getCity() {
         return city;
