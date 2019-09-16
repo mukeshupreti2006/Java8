@@ -15,21 +15,21 @@ public class AllInOne {
     static List<Transaction> transactions;
 
 
-   static  {
+    static {
         transactions = new ArrayList<>();
-        transactions.add(new Transaction(1, 1500,"Bombay","INRB"));
-        transactions.add(new Transaction(2, 500,"Delhi","INRD"));
-        transactions.add(new Transaction(3, 1210,"Bangalore","INRBA"));
-       transactions.add(new Transaction(3, 110,"Lucknow","INRBA"));
-       transactions.add(new Transaction(3, 900,"Mumbai","INRBA"));
+        transactions.add(new Transaction(1, 1500, "Bombay", "INRB"));
+        transactions.add(new Transaction(2, 500, "Delhi", "INRD"));
+        transactions.add(new Transaction(3, 1210, "Bangalore", "INRBA"));
+        transactions.add(new Transaction(3, 110, "Lucknow", "INRBA"));
+        transactions.add(new Transaction(3, 900, "Mumbai", "INRBA"));
     }
 
 
     public static void main(String[] args) {
 
-       findingMaxTransaction();
+        findingMaxTransaction();
 
-       buildingStreams();
+        buildingStreams();
 
 
         CollectorsMethods();
@@ -40,15 +40,14 @@ public class AllInOne {
         reduceMethod();
 
 
-       ifPresentOfOptional();
+        ifPresentOfOptional();
 
-        
 
         maptoIntFunction();
 
         letterCounter();
 
-       uniqueWordInFile();
+        uniqueWordInFile();
 
         expensiveTransaction();
 
@@ -63,11 +62,8 @@ public class AllInOne {
         averaging();
 
         highestTransaction();
-        
+
         reducing();
-
-
-
 
 
     }
@@ -80,43 +76,43 @@ public class AllInOne {
                         .filter(t -> t.getValue() > 1000)
                         .map(Transaction::getCity)
                         .collect(toSet());
-        System.out.println("expesive city >1000 -->" +cities);
+        System.out.println("expesive city >1000 -->" + cities);
 
         Set<String> cities1 =
                 transactions.stream()
                         .filter(t -> t.getValue() > 1000)
                         .map(Transaction::getCity)
                         .collect(Collectors.toCollection(HashSet::new));
-        System.out.println("expesive city >1000 with hashset -->" +cities1);
+        System.out.println("expesive city >1000 with hashset -->" + cities1);
 
         Map<String, List<Transaction>> transactionsByCurrencies =
-        transactions.stream().collect(groupingBy(
-                Transaction::getCurrency));
-        System.out.println("transactionsByCurrencies " +transactionsByCurrencies);
+                transactions.stream().collect(groupingBy(
+                        Transaction::getCurrency));
+        System.out.println("transactionsByCurrencies " + transactionsByCurrencies);
 
-      Map<Boolean,List<Transaction> > expesiveAndCheep=transactions.stream().collect(Collectors.partitioningBy(x->x.getValue()>1000));
-      System.out.println(" divide list of transaction by partitionby  "  +expesiveAndCheep);
+        Map<Boolean, List<Transaction>> expesiveAndCheep = transactions.stream().collect(Collectors.partitioningBy(x -> x.getValue() > 1000));
+        System.out.println(" divide list of transaction by partitionby  " + expesiveAndCheep);
 
         // sum of trainsection value by each city
         Map<String, Integer> cityToSum =
                 transactions.stream().collect(groupingBy(
                         Transaction::getCity, summingInt(Transaction::getValue)));
-        System.out.println(" each city transaction sum " +cityToSum);
+        System.out.println(" each city transaction sum " + cityToSum);
 
         Map<String, Optional<Transaction>> cityToHighestTransaction =
                 transactions.stream().collect(groupingBy(
                         Transaction::getCurrency, maxBy(Comparator.comparing(Transaction::getValue))));
         System.out.println(cityToHighestTransaction);
-        System.out.println(" each city hightest trasaction " +cityToSum);
+        System.out.println(" each city hightest trasaction " + cityToSum);
 
 
-       Map<String, Map<String, Double>> cityByCurrencyToAverage =
-        transactions.stream().collect(groupingBy(Transaction::getCity,
+        Map<String, Map<String, Double>> cityByCurrencyToAverage =
+                transactions.stream().collect(groupingBy(Transaction::getCity,
                         groupingBy(Transaction::getCurrency,
                                 averagingInt(Transaction::getValue))));
         System.out.println(cityByCurrencyToAverage);
 
-        System.out.println(" each city average trasaction " +cityToSum);
+        System.out.println(" each city average trasaction " + cityToSum);
 
         System.out.println("*****************");
     }
@@ -124,17 +120,17 @@ public class AllInOne {
     private static void buildingStreams() {
         System.out.println("buildingStreams");
 
-       //finite Streams
+        //finite Streams
         Stream<Integer> numbersFromValues = Stream.of(1, 2, 3, 4);
         int[] numbers = {1, 2, 3, 4};
         IntStream numbersFromArray = Arrays.stream(numbers);
 
-       // infinite streams . you cna limit by limit method
+        // infinite streams . you cna limit by limit method
 
         Stream<Integer> numbers1 = Stream.iterate(0, n -> n + 10);
 
         // infinite loop
-       // numbers1.collect(Collectors.toList());
+        // numbers1.collect(Collectors.toList());
 
 
         numbers1.limit(10).collect(Collectors.toList()).forEach(System.out::println);
@@ -147,7 +143,7 @@ public class AllInOne {
         transactions.stream().max(new Comparator<Transaction>() {
             @Override
             public int compare(Transaction o1, Transaction o2) {
-                return o1.getValue()-o2.getValue();
+                return o1.getValue() - o2.getValue();
             }
         }).ifPresent(System.out::println);
 
@@ -189,7 +185,7 @@ public class AllInOne {
 
         //max element
 
-        int max=numbers.stream().reduce(1,Integer::max);
+        int max = numbers.stream().reduce(1, Integer::max);
         System.out.println(max);
 
         System.out.println("_________________________");
@@ -199,35 +195,31 @@ public class AllInOne {
         System.out.println("limitFunction");
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
 
-                numbers.stream()
-                        .filter(n -> {
-                           System.out.println("filtering " + n);
-                            return n % 2 == 0;
-                        })
-                        .map(n -> {
-                           System.out.println("mapping " + n);
-                            return n * n;
-                        })
-                        .limit(2)
-                        .forEach(System.out::println);
+        numbers.stream()
+                .filter(n -> {
+                    System.out.println("filtering " + n);
+                    return n % 2 == 0;
+                })
+                .map(n -> {
+                    System.out.println("mapping " + n);
+                    return n * n;
+                })
+                .limit(2)
+                .forEach(System.out::println);
 
         System.out.println("_________________________");
     }
 
 
-
-
     //**flat map
-    public static void letterCounter(){
+    public static void letterCounter() {
         System.out.println("expensiveTransaction");
 
         Stream<String> words = Stream.of("Java", "Magazine", "is", "the", "best");
 
         Map<String, Long> letterToCount = words.map(w -> w.split(""))
                 .flatMap(Arrays::stream)
-                .collect(groupingBy(Function.identity(), Collectors.counting()))
-
-                ;
+                .collect(groupingBy(Function.identity(), Collectors.counting()));
 
         System.out.println(letterToCount);
         System.out.println("_________________________");
@@ -236,7 +228,7 @@ public class AllInOne {
 
 
     //flatMap
-    public static void uniqueWordInFile(){
+    public static void uniqueWordInFile() {
         System.out.println("expensiveTransaction");
 
         try {
@@ -253,20 +245,17 @@ public class AllInOne {
     }
 
 
-   // to get list of all expensive transaction
+    // to get list of all expensive transaction
 
-    public  static void expensiveTransaction(){
+    public static void expensiveTransaction() {
         System.out.println("expensiveTransaction");
 
 
-
-
-                transactions.stream()
-                        .filter(t -> t.getValue() > 1000)
-                        .map(Transaction::getId)
-                        .collect(Collectors.toList())
-                         .forEach(System.out::println);
-
+        transactions.stream()
+                .filter(t -> t.getValue() > 1000)
+                .map(Transaction::getId)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
 
 
         System.out.println("_________________________");
@@ -274,26 +263,25 @@ public class AllInOne {
 
     }
 
-    /** collect operation
-     *
-     *
+    /**
+     * collect operation
      */
 
-    public static void getExpensivecity(){
+    public static void getExpensivecity() {
         System.out.println("getExpensivecity");
-    transactions.stream()
-            .filter(t -> t.getValue() > 1000)
-            .map(Transaction::getCity)
-            .collect(Collectors.toSet())
-        .forEach(System.out::println);
+        transactions.stream()
+                .filter(t -> t.getValue() > 1000)
+                .map(Transaction::getCity)
+                .collect(Collectors.toSet())
+                .forEach(System.out::println);
         System.out.println("_________________________");
     }
 
     /**
-     *  However, using toCollection() you can have more control.
+     * However, using toCollection() you can have more control.
      */
 
-    public static void getExpensivecityV2(){
+    public static void getExpensivecityV2() {
         System.out.println("getExpensivecityV2");
         transactions.stream()
                 .filter(t -> t.getValue() > 1000)
@@ -312,8 +300,8 @@ public class AllInOne {
 
     /**
      * summing
-     *
-     *  can use summing Double(), summingInt(), and summingLong() to sum the values of a Double, an Int, or a Long property of the elements in a stream
+     * <p>
+     * can use summing Double(), summingInt(), and summingLong() to sum the values of a Double, an Int, or a Long property of the elements in a stream
      */
     private static void totalValue() {
 
@@ -343,8 +331,8 @@ public class AllInOne {
     }
 
     /**
-     *  we use the static method comparing(), which generates a Comparator object from a function passed as an argument.
-     *  The function is used to extract a comparable key from the element of a stream.
+     * we use the static method comparing(), which generates a Comparator object from a function passed as an argument.
+     * The function is used to extract a comparable key from the element of a stream.
      */
 
     private static void highestTransaction() {
@@ -360,8 +348,6 @@ public class AllInOne {
         System.out.println("_________________________");
 
     }
-
-
 
 
 }
