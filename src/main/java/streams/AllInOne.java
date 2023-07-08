@@ -20,17 +20,20 @@ public class AllInOne {
         transactions.add(new Transaction(1, 1500, "Bombay", "INRB"));
         transactions.add(new Transaction(2, 500, "Delhi", "INRD"));
         transactions.add(new Transaction(3, 1210, "Bangalore", "INRBA"));
-        transactions.add(new Transaction(3, 110, "Lucknow", "INRBA"));
-        transactions.add(new Transaction(3, 900, "Mumbai", "INRBA"));
+        transactions.add(new Transaction(6, 115, "Lucknow", "INRBA"));
+        transactions.add(new Transaction(5, 900, "Mumbai", "INRBA"));
+        transactions.add(new Transaction(4, 900, "Lucknow", "INRBA"));
     }
 
 
     public static void main(String[] args) {
-
+      //  transactions.stream().max(Comparator.comparing(Transaction::getValue)).ifPresent(System.out::println);
         findingMaxTransaction();
 
+       //
         buildingStreams();
 
+        convertTransactionListToMap();
 
         CollectorsMethods();
 
@@ -68,9 +71,15 @@ public class AllInOne {
 
     }
 
+    private static void convertTransactionListToMap() {
+        Map<Integer,Integer> mapofCityandValue=transactions.stream().collect(Collectors.toMap(Transaction::getId,Transaction::getValue));
+        System.out.println("mapofCityandValue" + mapofCityandValue );
+    }
+
     private static void CollectorsMethods() {
 
         System.out.println("CollectorsMethods");
+        // Transaction of cities having greater than 1000
         Set<String> cities =
                 transactions.stream()
                         .filter(t -> t.getValue() > 1000)
@@ -84,7 +93,7 @@ public class AllInOne {
                         .map(Transaction::getCity)
                         .collect(Collectors.toCollection(HashSet::new));
         System.out.println("expesive city >1000 with hashset -->" + cities1);
-
+        // Group by return map of key and List<T>
         Map<String, List<Transaction>> transactionsByCurrencies =
                 transactions.stream().collect(groupingBy(
                         Transaction::getCurrency));
@@ -93,7 +102,7 @@ public class AllInOne {
         Map<Boolean, List<Transaction>> expesiveAndCheep = transactions.stream().collect(Collectors.partitioningBy(x -> x.getValue() > 1000));
         System.out.println(" divide list of transaction by partitionby  " + expesiveAndCheep);
 
-        // sum of trainsection value by each city
+        // sum of transactions value by each city
         Map<String, Integer> cityToSum =
                 transactions.stream().collect(groupingBy(
                         Transaction::getCity, summingInt(Transaction::getValue)));
@@ -101,14 +110,14 @@ public class AllInOne {
 
         Map<String, Optional<Transaction>> cityToHighestTransaction =
                 transactions.stream().collect(groupingBy(
-                        Transaction::getCurrency, maxBy(Comparator.comparing(Transaction::getValue))));
+                        Transaction::getCity, maxBy(Comparator.comparing(Transaction::getValue))));
         System.out.println(cityToHighestTransaction);
         System.out.println(" each city hightest trasaction " + cityToSum);
 
         System.out.println("EXCITING");
         Map<String, Map<String, Double>> cityByCurrencyToAverage =
                 transactions.stream().collect(groupingBy(Transaction::getCity,
-                        groupingBy(Transaction::getCurrency,
+                        groupingBy(Transaction::getCity,
                                 averagingInt(Transaction::getValue))
                 ));
         System.out.println(cityByCurrencyToAverage);

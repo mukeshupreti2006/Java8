@@ -2,7 +2,15 @@ package streams;
 
 public class Transaction {
 
-
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", value=" + value +
+                ", city='" + city + '\'' +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
 
     private Integer id;
     private Integer value;
@@ -52,14 +60,7 @@ public class Transaction {
     }
 
 
-    @Override
-    public String  toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", value=" + value +
-                ", city='" + city + '\'' +
-                '}';
-    }
+
 
 
 }
