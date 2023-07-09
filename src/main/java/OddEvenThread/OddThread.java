@@ -1,7 +1,7 @@
 package OddEvenThread;
 
 public class OddThread implements  Runnable{
-    MainThread m;
+   final MainThread m;
     Counter counter;
     public OddThread(MainThread m, Counter counter) {
         this.m=m;
@@ -18,7 +18,7 @@ public class OddThread implements  Runnable{
                     counter.setValue(counter.getValue()+1);
 
                     try {
-                        m.notify();
+                        m.notify(); // it dont
                         m.wait();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
