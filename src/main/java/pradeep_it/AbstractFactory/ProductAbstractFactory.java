@@ -1,6 +1,7 @@
 package pradeep_it.AbstractFactory;
 
-public abstract class ProductFactory {
+//This will hide the factory Implemetation and return Factory created object
+public abstract class ProductAbstractFactory {
     public abstract Product createElectronicProduct();
     public abstract Product createClothingProduct();
 }

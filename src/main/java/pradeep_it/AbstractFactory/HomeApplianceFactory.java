@@ -1,6 +1,6 @@
 package pradeep_it.AbstractFactory;
 
-public class HomeApplianceFactory extends ProductFactory {
+public class HomeApplianceFactory extends ProductAbstractFactory {
     @Override
     public Product createElectronicProduct() {
         return new Television();

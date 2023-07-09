@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Create a HomeApplianceFactory
-        ProductFactory homeApplianceFactory = new HomeApplianceFactory();
+        ProductAbstractFactory homeApplianceFactory = new HomeApplianceFactory();
         Product electronicProduct1 = homeApplianceFactory.createElectronicProduct();
         Product clothingProduct1 = homeApplianceFactory.createClothingProduct();
 
@@ -12,7 +12,7 @@ public class Main {
         clothingProduct1.displayProduct();
 
         // Create a FashionFactory
-        ProductFactory fashionFactory = new FashionFactory();
+        ProductAbstractFactory fashionFactory = new FashionFactory();
         Product electronicProduct2 = fashionFactory.createElectronicProduct();
         Product clothingProduct2 = fashionFactory.createClothingProduct();
 

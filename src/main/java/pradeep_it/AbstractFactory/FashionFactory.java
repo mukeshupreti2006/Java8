@@ -1,7 +1,7 @@
 package pradeep_it.AbstractFactory;
 
 // Concrete Factory
-public class FashionFactory extends ProductFactory {
+public class FashionFactory extends ProductAbstractFactory {
     @Override
     public Product   createElectronicProduct() {
         return new NullProduct();
